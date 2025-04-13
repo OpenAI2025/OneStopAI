@@ -4,104 +4,146 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>OneStop AI Assistant</title>
-  <style>
+    <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #121212;
+      background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
       color: #fff;
       display: flex;
-      height: 100vh;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .container {
+      display: flex;
+      flex: 1;
+      flex-direction: row;
     }
     .sidebar {
-      width: 280px;
-      background-color: #1f1f1f;
+      width: 260px;
+      background: linear-gradient(180deg, #667eea, #764ba2);
       padding: 1rem;
       overflow-y: auto;
-      border-right: 1px solid #2a2a2a;
+      border-right: 2px solid #4b0082;
     }
     .sidebar h3 {
-      color: #ff4d4d;
-      font-size: 1rem;
-      margin-bottom: 1rem;
+      color: #ffe600;
+      font-size: 1.2rem;
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     .chat-entry {
       padding: 0.6rem 0;
-      border-bottom: 1px solid #333;
-      font-size: 0.95rem;
-      color: #ccc;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 1rem;
+      font-weight: 500;
+      color: #fefefe;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
-    .chat-entry:hover { color: white; }
+    .chat-entry:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
     .main {
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 2rem;
-      overflow: hidden;
+      padding: 1rem;
+      background: linear-gradient(to bottom, #ffecd2 0%, #fcb69f 100%);
+      color: #333;
     }
     .chat-center-title {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: bold;
       text-align: center;
+      color: #7b2ff7;
       margin-bottom: 1rem;
     }
     .chat-history {
       flex: 1;
       overflow-y: auto;
       padding: 1rem;
-      background-color: #1a1a1a;
-      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
       margin-bottom: 1rem;
+      color: #000;
     }
     .message { margin-bottom: 1rem; }
-    .user { color: #90caf9; text-align: right; }
-    .bot { color: #81c784; display: flex; gap: 0.5rem; }
+    .user {
+      color: #007bff;
+      text-align: right;
+    }
+    .bot {
+      color: #28a745;
+      display: flex;
+      gap: 0.5rem;
+    }
     .chat-box {
       display: flex;
       gap: 0.5rem;
-      background-color: #1e1e1e;
+      background-color: #ffffffcc;
       border-radius: 10px;
       padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
     .chat-box input[type="text"] {
       flex: 1;
       background: transparent;
       border: none;
-      color: white;
+      color: #333;
       font-size: 1rem;
       outline: none;
     }
     .chat-box button {
-      background: #3f51b5;
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
       border: none;
       color: white;
-      padding: 0.5rem 1rem;
+      font-weight: bold;
+      padding: 0.5rem 1.2rem;
       border-radius: 6px;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
-    .chat-box button:hover { background: #5c6bc0; }
+    .chat-box button:hover {
+      background: linear-gradient(to right, #ff7eb3, #ff758c);
+    }
+    @media screen and (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #4b0082;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="sidebar">
-    <h3>Coming Soon and the list of</h3>
-    <div class="chat-entry">OneStop AI Development</div>
-    <div class="chat-entry">Renew SSO Cert</div>
-    <div class="chat-entry">Translation History</div>
-    <div class="chat-entry">Citizenship Help</div>
-    <div class="chat-entry">Weather Forecast</div>
-    <div class="chat-entry">Form Filler</div>
+div class="container">
+    <div class="sidebar">
+      <h3>🔧 COMING SOON FEATURES!</h3>
+      <div class="chat-entry">🛂 Smart Citizenship Guide</div>
+      <div class="chat-entry">🤝 Community Help Desk</div>
+      <div class="chat-entry">📘 Education & Test Prep</div>
+      <div class="chat-entry">🌐 AI Translation Wizard</div>
+      <div class="chat-entry">📝 Auto-Fill Documents</div>
+      <hr style="margin: 1rem 0; border: none; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+      <div class="chat-entry">➕ New Chat</div>
+      <div class="chat-entry">📂 Continue Previous Chat</div>
+    </div>
+    <div class="main">
+      <div class="chat-center-title">Ready when you are.</div>
+      <div class="chat-history" id="chat"></div>
+      <form id="chatForm" class="chat-box">
+        <input type="text" id="userInput" placeholder="Ask anything... or describe an image..." />
+        <button type="submit">Send</button>
+      </form>
+    </div>
   </div>
-  <div class="main">
-    <div class="chat-center-title">Ready when you are.</div>
-    <div class="chat-history" id="chat"></div>
-    <form id="chatForm" class="chat-box">
-      <input type="text" id="userInput" placeholder="Ask anything... or describe an image..." />
-      <button type="submit">Send</button>
-    </form>
-  </div>
+
 
   <script>
     let userLocation = "Delaware"; // fallback default
