@@ -1,256 +1,213 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OneStop AI Assistant</title>
-    <style>
-    * { box-sizing: border-box; }
-    body {
+  <title>OneStep AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    * {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #0f0c29, #302b63, #24243e);
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
     }
-    .container {
-      display: flex;
-      flex: 1;
-      flex-direction: row;
-    }
-    .sidebar {
-      width: 260px;
-      background: linear-gradient(180deg, #667eea, #764ba2);
-      padding: 1rem;
-      overflow-y: auto;
-      border-right: 2px solid #4b0082;
-    }
-    .sidebar h3 {
-      color: #ffe600;
-      font-size: 1.2rem;
-      margin-bottom: 1.2rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .chat-entry {
-      padding: 0.6rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 1rem;
-      font-weight: 500;
-      color: #fefefe;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .chat-entry:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    .main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 1rem;
-      background: linear-gradient(to bottom, #ffecd2 0%, #fcb69f 100%);
-      color: #333;
-    }
-    .chat-center-title {
-      font-size: 2rem;
-      font-weight: bold;
+
+    header {
+      padding: 40px;
       text-align: center;
-      color: #7b2ff7;
-      margin-bottom: 1rem;
+      background: rgba(255, 255, 255, 0.05);
     }
-    .chat-history {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 10px;
-      margin-bottom: 1rem;
+
+    header h1 {
+      font-size: 3em;
+      font-weight: 600;
+      color: #00fff0;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.2em;
+      color: #ccc;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 30px 0;
+    }
+
+    nav a {
+      color: #00fff0;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    section p {
+      font-size: 1.1em;
+      color: #ccc;
+    }
+
+    .btn {
+      margin-top: 30px;
+      display: inline-block;
+      padding: 15px 30px;
+      border-radius: 30px;
+      background: #00fff0;
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #fff;
       color: #000;
     }
-    .message { margin-bottom: 1rem; }
-    .user {
-      color: #007bff;
-      text-align: right;
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: #888;
+      font-size: 0.9em;
     }
-    .bot {
-      color: #28a745;
-      display: flex;
-      gap: 0.5rem;
+
+    .demo-box {
+      margin: 30px auto;
+      padding: 20px;
+      background: #1f1f3a;
+      border-radius: 15px;
+      text-align: left;
+      max-width: 600px;
     }
-    .chat-box {
-      display: flex;
-      gap: 0.5rem;
-      background-color: #ffffffcc;
-      border-radius: 10px;
-      padding: 1rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-    .chat-box input[type="text"] {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: #333;
-      font-size: 1rem;
-      outline: none;
-    }
-    .chat-box button {
-      background: linear-gradient(to right, #ff758c, #ff7eb3);
-      border: none;
-      color: white;
+
+    .demo-box label {
+      display: block;
+      margin-top: 10px;
       font-weight: bold;
-      padding: 0.5rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
     }
-    .chat-box button:hover {
-      background: linear-gradient(to right, #ff7eb3, #ff758c);
-    }
-    @media screen and (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-      .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 2px solid #4b0082;
-      }
+
+    .demo-box input, .demo-box select, .demo-box textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
     }
   </style>
-</head>
-<body>
-div class="container">
-    <div class="sidebar">
-      <h3>🔧 COMING SOON FEATURES!</h3>
-      <div class="chat-entry">🛂 Smart Citizenship Guide</div>
-      <div class="chat-entry">🤝 Community Help Desk</div>
-      <div class="chat-entry">📘 Education & Test Prep</div>
-      <div class="chat-entry">🌐 AI Translation Wizard</div>
-      <div class="chat-entry">📝 Auto-Fill Documents</div>
-      <hr style="margin: 1rem 0; border: none; border-top: 1px solid rgba(255, 255, 255, 0.2);">
-      <div class="chat-entry">➕ New Chat</div>
-      <div class="chat-entry">📂 Continue Previous Chat</div>
-    </div>
-    <div class="main">
-      <div class="chat-center-title">Ready when you are.</div>
-      <div class="chat-history" id="chat"></div>
-      <form id="chatForm" class="chat-box">
-        <input type="text" id="userInput" placeholder="Ask anything... or describe an image..." />
-        <button type="submit">Send</button>
-      </form>
-    </div>
-  </div>
-
-
   <script>
-    let userLocation = "Delaware"; // fallback default
-
-    // Try to get user geolocation
-    navigator.geolocation?.getCurrentPosition(
-      async (position) => {
-        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`);
-        const data = await res.json();
-        userLocation = data.address.state || data.address.city || "your area";
-      },
-      () => {},
-      { timeout: 5000 }
-    );
-
-    const chat = document.getElementById('chat');
-    const form = document.getElementById('chatForm');
-    const input = document.getElementById('userInput');
-    const HF_API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2";
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const msg = input.value.trim();
-      if (!msg) return;
-      appendMessage('user', msg);
-      input.value = '';
-      chat.scrollTop = chat.scrollHeight;
-
-      if (/create an image|generate image|make an image/i.test(msg)) {
-        const prompt = msg.replace(/create an image( of)?|generate image( of)?|make an image( of)?/i, '').trim();
-        if (!prompt) {
-          appendMessage('bot', `❗ Please describe what kind of image you'd like me to generate.`);
-          return;
-        }
-        const loadingEl = appendMessage('bot', `🖼️ Generating image of <strong>${prompt}</strong>, please wait...`);
-        try {
-          const imageUrl = await generateRealImage(prompt);
-          loadingEl.innerHTML = `<div class="bot"><img src='./assets/bot.gif' style='width:32px;height:32px;' /><div><strong>Here is your AI-generated image:</strong><br><img src="${imageUrl}" class="mt-2 rounded shadow max-w-xs" /></div></div>`;
-        } catch (err) {
-          loadingEl.innerHTML = `<div class="bot"><img src='./assets/bot.gif' style='width:32px;height:32px;' /><div>❌ Failed to generate image. Try again later.</div></div>`;
-        }
-      } else if (/nearest hospital|llc|health insurance|apply for insurance/i.test(msg.toLowerCase())) {
-        const lower = msg.toLowerCase();
-        let response = "";
-
-        if (lower.includes("nearest hospital")) {
-          response = `🏥 Based on your location (${userLocation}), you can try searching hospitals near you on <a href='https://www.google.com/maps/search/hospital+near+${userLocation}' target='_blank'>Google Maps</a>. Let me know if you'd like a specific name.`;
-        } else if (lower.includes("llc")) {
-          response = `✅ Here’s how to start an LLC in ${userLocation}:
-<ul>
-  <li>Choose a name</li>
-  <li>File formation docs</li>
-  <li>Appoint a registered agent</li>
-  <li>Pay fees online at the state website</li>
-</ul>
-If you want a link for your state, just say "show me the link."`;
-        } else if (lower.includes("health insurance") || lower.includes("apply for insurance")) {
-          response = `🩺 To apply for health insurance in ${userLocation}, visit <a href='https://www.healthcare.gov/' target='_blank'>HealthCare.gov</a> or your local Medicaid provider. Let me know your needs and I’ll guide you.`;
-        } else {
-          response = `Let me find the best info for your location: ${userLocation}.`;
-        }
-
-        appendMessage('bot', response);
-      } else {
-        const response = await callOpenAI(msg);
-        appendMessage('bot', `<span style="font-style: italic;">${response}</span>`);
-      }
-    });
-
-    function appendMessage(sender, html) {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'message ' + sender;
-      if (sender === 'bot') {
-        wrapper.innerHTML = `<div class="bot"><img src='./assets/bot.gif' style='width:32px;height:32px;' /><div>${html}</div></div>`;
-      } else {
-        wrapper.innerHTML = `<div class="user">🧑‍💻 ${html}</div>`;
-      }
-      chat.appendChild(wrapper);
-      chat.scrollTop = chat.scrollHeight;
-      return wrapper;
+    function handleCheckIn() {
+      alert("Checked in successfully!");
     }
-
-    async function generateRealImage(prompt) {
-      const response = await fetch(HF_API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ inputs: prompt })
-      });
-      if (!response.ok) throw new Error("Image generation failed");
-      const blob = await response.blob();
-      return URL.createObjectURL(blob);
-    }
-
-    async function callOpenAI(question) {
-      const response = await fetch("http://localhost:5073/api/ai/ask", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question })
-      });
-      const data = await response.json();
-      try {
-        const parsed = JSON.parse(data.answer);
-        return parsed.response || data.answer || "I'm here for you, but I couldn't find a perfect answer this time.";
-      } catch {
-        return data.answer || "I'm here for you, but I couldn't find a perfect answer this time.";
-      }
+    function handlePhotoUpload() {
+      alert("Photo uploaded! Progress saved.");
     }
   </script>
+</head>
+<body>
+
+  <header>
+    <h1>OneStep AI</h1>
+    <p>Your All-in-One Smart Assistant for Life & Business</p>
+  </header>
+
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#subscribe">Subscribe</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="services">
+    <h2>What We Offer</h2>
+    <p>Citizenship Help. Document Auto-fill. Translation. Smart Community Support. AI Chat. And More.</p>
+    <p><strong>📌 Construction Project Tracker</strong><br>
+    A simple yet powerful tool for construction business owners to manage field work with ease. Create projects, assign roles, and let workers log their hours with check-in/check-out. They can upload photos, pick their tasks, and update progress — all from their phone.</p>
+    <a href="#projectdemo" class="btn">See Live Demo</a>
+  </section>
+
+  <section id="projectdemo">
+    <h2>📲 Construction Tracker Demo</h2>
+
+    <div class="demo-box">
+      <h3>👷 Worker Check-In</h3>
+      <label>Project:</label>
+      <input type="text" value="Downtown Tower - Floor 3" disabled>
+
+      <label>Task:</label>
+      <select>
+        <option>Choose a task</option>
+        <option>Drywall Installation</option>
+        <option>Painting</option>
+        <option>Electric Wiring</option>
+      </select>
+
+      <button class="btn" onclick="handleCheckIn()">Check In</button>
+
+      <label>Upload Work Photo:</label>
+      <input type="file">
+      <textarea rows="3" placeholder="Add a comment..."></textarea>
+      <button class="btn" onclick="handlePhotoUpload()">Submit Update</button>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>Why OneStep AI?</h2>
+    <p>We simplify complex tasks using powerful AI — making services accessible for everyone, from document prep to language help, all in one step.</p>
+  </section>
+
+  <section id="subscribe">
+    <h2>Why Subscribe to OneStep AI?</h2>
+    <p>OneStep AI combines automation, translation, document help, and live support into one platform — saving you time, money, and stress.</p>
+    <p><strong>Here’s what you get with your subscription:</strong></p>
+    <ul style="text-align: left; max-width: 700px; margin: 20px auto; line-height: 1.8; color: #ccc;">
+      <li>🧾 Upload documents and let AI auto-fill them instantly</li>
+      <li>🌍 Translate official papers into your preferred language</li>
+      <li>🛂 Prepare for your U.S. citizenship test with practice questions</li>
+      <li>📃 AI-guided form help for Medicaid, housing, jobs, and more</li>
+      <li>🤖 24/7 smart chat support for anything you need</li>
+      <li>🧠 Your information is saved, so it remembers you next time</li>
+      <li>🔓 Unlock full features, unlimited uploads, and PDF downloads</li>
+    </ul>
+    <p>Imagine getting a letter in English, and within 3 minutes, OneStep AI reads it, translates it, explains it, and fills out your reply — all from your phone.</p>
+    <a href="#" class="btn">Start Your Free Trial</a>
+  </section>
+
+  <section id="contact">
+    <h2>Get in Touch</h2>
+    <p>Email: support@onestepai.app | Phone: (302) 123-4567</p>
+  </section>
+
+  <footer>
+    &copy; 2025 OneStep AI. All rights reserved. Powered by OneStep AI.
+  </footer>
+
 </body>
 </html>
